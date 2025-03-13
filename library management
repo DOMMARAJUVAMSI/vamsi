@@ -1,14 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
 struct book {
     int id;
     char title[100];
     char author[100];
     struct book* next;
 };
-
 struct book* createBook(int id, char title[], char author[]) {
     struct book* newBook = (struct book*)malloc(sizeof(struct book));
     newBook->id = id;
@@ -17,7 +15,6 @@ struct book* createBook(int id, char title[], char author[]) {
     newBook->next = NULL;
     return newBook;
 }
-
 void addBook(struct book** head, int id, char title[], char author[]) {
     struct book* newBook = createBook(id, title, author);
     if (*head == NULL) {
@@ -30,7 +27,6 @@ void addBook(struct book** head, int id, char title[], char author[]) {
     }
     temp->next = newBook;
 }
-
 void displayBooks(struct book* head) {
     if (head == NULL) {
         printf("No books in the library.\n");
@@ -43,7 +39,6 @@ void displayBooks(struct book* head) {
         temp = temp->next;
     }
 }
-
 struct book* searchBook(struct book* head, int id) {
     struct book* temp = head;
     while (temp != NULL) {
@@ -54,7 +49,6 @@ struct book* searchBook(struct book* head, int id) {
     }
     return NULL;
 }
-
 void deleteBook(struct book** head, int id) {
     struct book* temp = *head;
     struct book* prev = NULL;
@@ -65,34 +59,28 @@ void deleteBook(struct book** head, int id) {
         printf("Book with ID %d deleted.\n", id);
         return;
     }
-
     while (temp != NULL && temp->id != id) {
         prev = temp;
         temp = temp->next;
     }
-
     if (temp == NULL) {
         printf("Book with ID %d not found.\n", id);
         return;
     }
-
     prev->next = temp->next;
     free(temp);
     printf("Book with ID %d deleted.\n", id);
 }
-
 int main() {
     struct book* library = NULL;
     int choice, id;
     char title[100], author[100];
-
     while (1) {
         printf("\nLibrary Management System\n");
         printf("1. Add Book\n2. Display Books\n3. Search Book\n4. Delete Book\n5. Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
         getchar();
-
         switch (choice) {
             case 1:
                 printf("Enter the book ID: ");
